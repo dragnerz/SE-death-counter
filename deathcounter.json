@@ -1,0 +1,86 @@
+{
+  "deathIcon": {
+    "group": "Counter",
+    "type": "image-input",
+    "label": "Death Counter Icon",
+    "value":""
+  },
+  "deathIconSize": {
+    "group": "Counter",
+    "type": "number",
+    "label": "Death Icon & Font Size",
+    "value": 100
+  },
+  "username_deathmessage": {
+    "group": "Counter",
+    "type": "text",
+    "label": "Name to call you in chat",
+    "value": "name"
+  },
+  "deathMessageFlag": {
+    "group": "Counter",
+    "type": "dropdown",
+    "label": "Show chat message on death?",
+    "value": "true",
+    "options": {
+      "true": "Yes, show message",
+      "false": "No message"
+    }
+  },
+  "deathIconTopAdjustment": {
+    "group": "Counter",
+    "type": "number",
+    "label": "Move Death Icon Up and Down",
+    "value": 0
+  },
+  "fontName": {
+    "group": "Font",
+    "type": "googleFont",
+    "label": "Font Name",
+    "value": "Roboto"
+  },
+  "fontWeight": {
+    "group": "Font",
+    "label": "Font Weight",
+    "type": "dropdown",
+    "value": "400",
+    "options": {
+      "100": "Thin (100)",
+      "300": "Light (300)",
+      "400": "Regular (400)",
+      "500": "Medium (500)",
+      "700": "Bold (700)",
+      "900": "Black (900)"
+    }
+  },
+  "fontColor": {
+    "group": "Font",
+    "type": "colorpicker",
+    "label": "Font Color",
+    "value": "rgba(255,255,255,1)"
+  }, 
+  "globalCooldown": {
+    "group": "Cooldowns",
+    "type": "number",
+    "label": "Cooldown for everyone in chat",
+    "value": 10
+  },
+  "userCooldown": {
+    "group": "Cooldowns",
+    "type": "number",
+    "label": "Cooldown for everyone each specific user",
+    "value": 10
+  },
+  "username": {
+    "group": "Twitch Login",
+    "type": "text",
+    "label": "Channel Username",
+    "value": "username"
+  },
+  "ouathcode": {
+    "group": "Twitch Login",
+    "type": "text",
+    "label": "Bot OUATH",
+    "value": "ouath:xxxxxxxxx"
+  }
+}
