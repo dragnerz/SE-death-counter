@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family={fontName}');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
+#deathContainer {
+  position: absolute;
+  top: 0px;
+  width: 400px;
+  height: 200px;
+  opacity: 1;
+}
+.section1 {
+  height: 200px;
+  float: left;
+}
+
+.section2 {
+  margin-left: {{deathIconSize}}px;
+  height: 200px;
+}
+.odometer {
+  position: relative;
+  text-align: left;
+    
+  width: 720px;
+  font-size: {{deathIconSize}}px;
+  font-family: {fontName};
+  font-weight: {{fontWeight}};
+  opacity: 1;
+  color: {{fontColor}};
+}
+
+#deathIcon {
+  position: relative;
+  width: {{deathIconSize}}px;
+  height: auto;
+  left: -5px;
+  top: {{deathIconTopAdjustment}}px;
+  opacity: 1;
+}
