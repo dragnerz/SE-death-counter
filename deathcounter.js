@@ -1,5 +1,7 @@
-const TWITCHUSER = "{{username}}"
-const OAUTH_BOT = "{{ouathcode}}"
+const TWITCHUSER = "{{username}}";
+const OAUTH_BOT = "{{ouathcode}}";
+
+const deathObject = "DeathStorage";
 // This will be the account that sends chat messages. Can either be your streaming account OR a bot
 // get ouath code from here -> https://twitchapps.com/tmi/
 
@@ -117,7 +119,7 @@ let cooldown_gamble = {};
 
 // Object Structure
 /*
-SE_API.store.set('DeathStorage', {
+SE_API.store.set(deathObject, {
   'deathObjects':
   [
     {
@@ -130,11 +132,8 @@ SE_API.store.set('DeathStorage', {
   }
 );
 
-SE_API.store.get('DeathStorage').then(obj => {
-  console.log(obj['setting']);
-}); 
-*/
 
+*/
 
 // Odometer Settings
 var el = document.querySelector('#deathcounter');
@@ -167,8 +166,7 @@ function changeDeaths(n) {
 }
 
 function deathStorageIncrement() {
-  SE_API.store.get('DeathStorage').then(obj => {
-    console.log(obj);
+  SE_API.store.get(deathObject).then(obj => {
     const deathSetting = obj['setting'];
     let deathObject = obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)]
     const currentDeaths = deathObject['deaths'];
@@ -183,13 +181,12 @@ function deathStorageIncrement() {
     // Change object, and save to storage
     deathObject['deaths'] = deaths;
     obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)] = deathObject;
-    SE_API.store.set('DeathStorage', obj);
+    SE_API.store.set(deathObject, obj);
   });  
 }
 
 function deathStorageSet(n_deaths="") {
-  SE_API.store.get('DeathStorage').then(obj => {
-    console.log(obj);
+  SE_API.store.get(deathObject).then(obj => {
     const deathSetting = obj['setting'];
     let deathObject = obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)]
     const currentDeaths = deathObject['deaths'];
@@ -202,12 +199,12 @@ function deathStorageSet(n_deaths="") {
     // Change object, and save to storage
     deathObject['deaths'] = deaths;
     obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)] = deathObject;
-    SE_API.store.set('DeathStorage', obj);
+    SE_API.store.set(deathObject, obj);
   });  
 }
 
 function deathStorageSetGame(game_name="") {
-  SE_API.store.get('DeathStorage').then(obj => {
+  SE_API.store.get(deathObject).then(obj => {
     const deathSetting = (game_name === "") ? obj['setting']:game_name.toLowerCase();
     let deathObject;
     deathObject = obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)]
@@ -227,13 +224,35 @@ function deathStorageSetGame(game_name="") {
     // Change object, and save to storage
     obj.deathObjects.push(deathObject);
     obj['setting'] = deathSetting;
-    SE_API.store.set('DeathStorage', obj);
+    SE_API.store.set(deathObject, obj);
   });  
 }
 
 // On Window Load
 window.addEventListener('onWidgetLoad', async function (obj) {
-  SE_API.store.get('DeathStorage').then(obj => {
+  SE_API.store.get(deathObject).then(obj => { 
+    console.log("Let's check if the object exists...");
+      if (obj === null) {
+        console.log("It's null! Setting a default")
+        SE_API.store.set(deathObject, {
+          'deathObjects':
+          [
+            {
+              'gameName': 'default',
+              'deaths': 0,
+              'split': []
+            }
+          ],
+          'setting': 'default'
+          }
+        );
+      } else {
+        console.log("It exists!");
+      }
+  });
+  
+  
+  SE_API.store.get(deathObject).then(obj => { 
       const deathSetting = obj['setting'];
       const deathObject = obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)]
 	  const deaths = deathObject['deaths'];
@@ -271,8 +290,7 @@ ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
   if (command === "deaths") {
     const timer_check = runCommandTimer("deaths", user, command_timers);
     if (timer_check[0] === true) {
-      SE_API.store.get('DeathStorage').then(obj => {
-        console.log(obj);
+      SE_API.store.get(deathObject).then(obj => {
         const deathSetting = obj['setting'];
         const deathObject = obj.deathObjects[obj.deathObjects.findIndex(element => element.gameName === deathSetting)]
         const deaths = deathObject['deaths'];
